@@ -11,16 +11,16 @@
   
   Meteor.methods({
     resumeProfile: function() {
-      var profiler = NodeModules.require('profiler');
-      
-      console.log('-- Resuming profile');
-      Meteor.Profiler.allow(this.userId) && profiler.resume();
+      if (Meteor.Profiler.allow(this.userId)) {
+        console.log('-- Resuming profile');
+        NodeModules.require('profiler').resume();
+      }
     },
     pauseProfile: function() {
-      var profiler = NodeModules.require('profiler');
-      
-      console.log('-- Pausing profile');
-      Meteor.Profiler.allow(this.userId) && profiler.pause();
+      if (Meteor.Profiler.allow(this.userId)) {
+        console.log('-- Pausing profile');
+        NodeModules.require('profiler').pause();
+      }
     }
   });
 }());
